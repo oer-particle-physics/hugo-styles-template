@@ -49,3 +49,10 @@ while this template keeps the content, branding, and local overrides in one easy
   link="learners/setup/"
 >}}
 {{< /hextra/feature-grid >}}
+
+<div class="hx:mt-6"></div>
+{{< lesson/overview >}}
+<div class="hx:mt-6"></div>
+{{< lesson/schedule title="Schedule" >}}
+<div class="hx:mt-6"></div>
+{{< lesson/authors title="Authors and Contributors" >}}
