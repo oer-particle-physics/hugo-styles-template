@@ -41,9 +41,8 @@ jobs:
       - name: Validate lesson content
         shell: bash
         run: |
-          MODULE_DIR="$(go list -f '{{.Dir}}' -m github.com/oer-particle-physics/hugo-styles)"
-          cd "${MODULE_DIR}/cmd/hugo-styles-migrate"
-          go run . check "${GITHUB_WORKSPACE}"
+          MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles)"
+          go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"
 
       - name: Build
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
