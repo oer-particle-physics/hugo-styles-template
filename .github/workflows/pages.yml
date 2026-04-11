@@ -41,7 +41,7 @@ jobs:
       - name: Validate lesson content
         shell: bash
         run: |
-          MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles)"
+          MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate)"
           go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"
 
       - name: Build
