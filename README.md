@@ -21,16 +21,25 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
 
 ## First steps
 
-1. Update `baseURL`, title, description, contact, and repository links in `hugo.toml`.
-   The `params.lesson.repo` value powers the source links and the GitHub icon in the top navigation.
-2. Start the site with `hugo server`.
+1. Check local setup first.
+   Install Hugo Extended, then run `hugo version` and `hugo server`.
+   Go is optional for normal authoring because this template commits `_vendor/`.
+2. Update `baseURL`, title, description, contact, and repository links in `hugo.toml`.
+   `params.lesson.repo` powers the source and edit links in the page footer.
+   The top-nav GitHub icon is configured separately in `[[menus.main]]`.
+   If you will deploy on GitHub Pages, set `baseURL` to `https://<account>.github.io/<repo>/`.
+   In the repository settings, enable Pages and choose `GitHub Actions` as the source before the first push to `main`.
 3. Add or replace the sample content.
-4. Read the shared docs in the `hugo-styles` repository or on its published site:
-   - `docs/quickstart`
-   - `docs/authoring`
-   - `docs/frontmatter`
-   - `docs/components`
-   - `docs/deployment`
+4. Use the shared docs in the `hugo-styles` repository or on its published site when you need deeper authoring, deployment, or update guidance:
+   - [Quickstart](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/)
+   - [Authoring Guide](https://oer-particle-physics.github.io/hugo-styles/docs/authoring/)
+   - [Front Matter](https://oer-particle-physics.github.io/hugo-styles/docs/frontmatter/)
+   - [Components](https://oer-particle-physics.github.io/hugo-styles/docs/components/)
+   - [Deployment](https://oer-particle-physics.github.io/hugo-styles/docs/deployment/)
+   - [Versioned Sites](https://oer-particle-physics.github.io/hugo-styles/docs/versioned-sites/)
+
+The sample `Versions` dropdown in `hugo.toml` demonstrates the same pattern Hextra uses for its public docs.
+Replace those URLs with your real published version paths or remove the menu entirely if your lesson only ships one site version.
 
 ## Why `_vendor/` is committed
 

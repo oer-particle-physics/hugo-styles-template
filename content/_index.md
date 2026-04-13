@@ -3,8 +3,8 @@ title = "Example Lesson"
 layout = "hextra-home"
 +++
 
-{{< hextra/hero-badge link="episodes/01-getting-started/" >}}
-Starter Template {{< icon name="arrow-circle-right" attributes="height=14" >}}
+{{< hextra/hero-badge link="https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/" >}}
+Shared module docs {{< icon name="arrow-circle-right" attributes="height=14" >}}
 {{< /hextra/hero-badge >}}
 
 <div class="hx:mt-6 hx:mb-6">
@@ -17,9 +17,8 @@ without copying framework code
 
 <div class="hx:mb-12">
 {{< hextra/hero-subtitle >}}
-This repository stays intentionally small.
-The shared `hugo-styles` module provides the lesson system,
-while this template keeps the content, branding, and local overrides in one easy-to-maintain place.
+Start with local setup checks, then update `hugo.toml`, then replace the sample content.
+The shared [hugo-styles](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/) docs provide the authoring, deployment, and update guidance while this template stays focused on lesson-specific files.
 {{< /hextra/hero-subtitle >}}
 </div>
 
@@ -31,20 +30,20 @@ while this template keeps the content, branding, and local overrides in one easy
 
 {{< hextra/feature-grid cols="3" >}}
 {{< hextra/feature-card
-  title="Shared lesson system"
-  subtitle="Layouts, pedagogy blocks, search, aggregated resources, and CI validation come from the shared module without leaking the module docs into your lesson site."
+  title="First-run path"
+  subtitle="Follow the getting-started page in order: setup, metadata, then content replacement."
   icon="book-open"
-  link="reference/"
->}}
-{{< hextra/feature-card
-  title="Local ownership"
-  subtitle="Your lesson repository only needs to hold the tutorial content, site branding, and any deliberate local overrides."
-  icon="academic-cap"
   link="episodes/01-getting-started/"
 >}}
 {{< hextra/feature-card
-  title="Learner-ready structure"
-  subtitle="Setup, episodes, glossary, profiles, key points, and all-in-one pages are available directly in the lesson site."
+  title="Shared docs"
+  subtitle="Use the shared `hugo-styles` docs for authoring, deployment, and update guidance after the site is running."
+  icon="academic-cap"
+  link="https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/"
+>}}
+{{< hextra/feature-card
+  title="Setup checks"
+  subtitle="Verify Hugo Extended first. Go stays optional for normal authoring because `_vendor/` is committed."
   icon="sparkles"
   link="learners/setup/"
 >}}
