@@ -3,17 +3,23 @@ title = "Setup"
 weight = 10
 +++
 
-Document installation steps, entry checks, and platform-specific notes here.
+For normal lesson authoring in this template, you only need Hugo Extended.
+The shared module is vendored in `_vendor/`, so local builds do not require Go.
+
+{{< callout type="note" title="When Go is needed" >}}
+Go is only needed if you maintain module updates locally
+(for example, running `hugo mod tidy`, `hugo mod vendor`, or the migration checker).
+{{< /callout >}}
 
 {{< tabs >}}
 {{< tab name="macOS" selected=true >}}
 ```bash
-brew install hugo go
+brew install hugo
 ```
 {{< /tab >}}
 {{< tab name="Linux" >}}
 ```bash
-sudo apt install hugo golang
+sudo apt install hugo
 ```
 {{< /tab >}}
 {{< tab name="Windows" >}}
@@ -27,19 +33,18 @@ winget install Hugo.Hugo.Extended
 {{< tab name="bash" selected=true >}}
 ```bash
 hugo version
-go version
 ```
 {{< /tab >}}
 {{< tab name="zsh" >}}
 ```zsh
 hugo version
-go version
 ```
 {{< /tab >}}
 {{< tab name="fish" >}}
 ```fish
 hugo version
-go version
 ```
 {{< /tab >}}
 {{< /tabs >}}
+
+If you plan to update `_vendor/` locally, install Go and verify with `go version`.

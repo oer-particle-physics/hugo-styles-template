@@ -35,8 +35,12 @@ jobs:
         id: pages
         uses: actions/configure-pages@v6
 
-      - name: Download modules
-        run: hugo mod tidy
+      - name: Verify vendored modules are up to date
+        shell: bash
+        run: |
+          hugo mod tidy
+          hugo mod vendor
+          git diff --exit-code -- go.mod go.sum _vendor
 
       - name: Validate lesson content
         shell: bash

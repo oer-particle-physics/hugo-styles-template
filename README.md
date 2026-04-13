@@ -7,6 +7,7 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
 - lesson-specific content
 - lesson metadata in `hugo.toml`
 - local branding or small layout overrides
+- vendored Hugo module files in `_vendor/` for no-Go local authoring
 - GitHub Pages workflow
 - Dependabot configuration for module updates
 
@@ -30,25 +31,42 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
    - `docs/frontmatter`
    - `docs/components`
    - `docs/deployment`
-5. Once `hugo-styles` has a published release, pin it with:
+
+## Why `_vendor/` is committed
+
+This repository commits `_vendor/` so authors can run local lesson builds without installing Go.
+As long as `go.mod`, `go.sum`, and `_vendor/` are in sync, `hugo server` works with Hugo Extended alone.
+
+## Updating shared module versions
+
+### Preferred: GitHub Actions (no local Go required)
+
+Run the **Refresh vendored Hugo modules** workflow from the Actions tab.
+It refreshes module metadata and `_vendor/`, then opens a PR if anything changed.
+
+Dependabot still manages `gomod` version discovery and can trigger update PRs on its normal schedule.
+
+### Local maintainer path (Go available)
 
 ```bash
-hugo mod get github.com/oer-particle-physics/hugo-styles@latest
 hugo mod tidy
+hugo mod vendor
+hugo --gc --minify
 ```
 
-## Updating the lesson later
-
-When a new `hugo-styles` release is available:
+If you want to move to the latest release first:
 
 ```bash
 hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
 hugo mod tidy
-go run github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@latest check .
-hugo
+hugo mod vendor
 ```
 
-If Dependabot is enabled, most of those updates should arrive as pull requests instead.
+Commit these files together:
+
+- `go.mod`
+- `go.sum`
+- `_vendor/`
 
 For local co-development with a sibling `hugo-styles` checkout, use a temporary local `replace` or `go.work`
 setup while testing, but do not commit that override to the template repository.

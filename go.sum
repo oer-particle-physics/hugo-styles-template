@@ -2,3 +2,5 @@ github.com/imfing/hextra v0.12.1 h1:3t1n0bmJbDzSTVfht93UDcfF1BXMRjeFojA071ri2l8=
 github.com/imfing/hextra v0.12.1/go.mod h1:vi+yhpq8YPp/aghvJlNKVnJKcPJ/VyAEcfC1BSV9ARo=
 github.com/oer-particle-physics/hugo-styles v0.0.0-20260412131146-fb26f680421d h1:udKGONgLJB4+DTVTy9CHQL1pku3cIyxZSgRPNB73ooI=
 github.com/oer-particle-physics/hugo-styles v0.0.0-20260412131146-fb26f680421d/go.mod h1:xqFkY9oxqm13s30BQewyVS4xD5QUpJi8bbsxlUJHiPc=
+github.com/oer-particle-physics/hugo-styles v0.0.0-20260413125150-445830cdd16b h1:QWcfD08frljQ2usxGJ3WaroPpruwcDz6BsTYMZ/fL0o=
+github.com/oer-particle-physics/hugo-styles v0.0.0-20260413125150-445830cdd16b/go.mod h1:xqFkY9oxqm13s30BQewyVS4xD5QUpJi8bbsxlUJHiPc=

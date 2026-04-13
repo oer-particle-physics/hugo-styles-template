@@ -1,0 +1,51 @@
+name: Refresh vendored Hugo modules
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.160.1"
+          extended: true
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Refresh module metadata and vendor tree
+        run: |
+          hugo mod tidy
+          hugo mod vendor
+
+      - name: Verify build from vendored modules
+        run: hugo --gc --minify --noBuildLock --destination /tmp/site
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/refresh-vendored-hugo-modules
+          delete-branch: true
+          commit-message: "chore: refresh vendored Hugo modules"
+          title: "chore: refresh vendored Hugo modules"
+          body: |
+            Automated refresh of Hugo module metadata and committed `_vendor/`.
+
+            Updated artifacts:
+            - `go.mod`
+            - `go.sum`
+            - `_vendor/`
+          labels: dependencies
