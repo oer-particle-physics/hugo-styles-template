@@ -64,6 +64,27 @@ disableKinds = ["taxonomy", "term", "RSS"]
   displayPoweredBy = false
   displayCopyright = false
 
+[params.versioning]
+  enable = true
+  defaultBranch = "main"
+  menuName = "Versions"
+  menuIdentifier = "versions"
+  menuWeight = 70
+
+  [params.versioning.latest]
+    enable = true
+    label = "Latest"
+
+  [params.versioning.branches]
+    refs = []
+    patterns = []
+    all = false
+
+  [params.versioning.tags]
+    refs = []
+    patterns = []
+    all = false
+
 [menus]
   [[menus.main]]
     name = "Episodes"
@@ -112,24 +133,6 @@ disableKinds = ["taxonomy", "term", "RSS"]
     parent = "resources"
     pageRef = "/profiles"
     weight = 50
-  # Optional demonstration of a version dropdown. Replace or remove these
-  # links unless you publish archived builds at matching URLs.
-  [[menus.main]]
-    name = "Versions"
-    identifier = "versions"
-    weight = 70
-  [[menus.main]]
-    name = "Development ↗"
-    identifier = "development"
-    parent = "versions"
-    url = "https://example.github.io/example-lesson/versions/latest/"
-    weight = 10
-  [[menus.main]]
-    name = "v1.0 ↗"
-    identifier = "v1-0"
-    parent = "versions"
-    url = "https://example.github.io/example-lesson/versions/v1.0/"
-    weight = 20
   [[menus.main]]
     name = "Search"
     weight = 80

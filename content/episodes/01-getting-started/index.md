@@ -50,6 +50,7 @@ Edit these fields before replacing episode content:
 | `[params.lesson].contact` | Contact shown in lesson metadata contexts. |
 | `[params.lesson].repo` | Footer source link target in the UI. |
 | `[params.lesson].editBranch` | Branch used for “Edit this page” links. |
+| `[params.versioning]` | Controls whether the deployment workflow publishes only `Latest` or also archived branch/tag builds. |
 | `[[menus.main]]` GitHub `url` | Top-nav GitHub link target. |
 
 If you plan to deploy on GitHub Pages, enable Pages in the repository settings and choose

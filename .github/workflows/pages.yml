@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -39,8 +41,9 @@ jobs:
         shell: bash
         run: |
           hugo mod tidy
+          ./scripts/sync-build-versioned-site.sh
           hugo mod vendor
-          git diff --exit-code -- go.mod go.sum _vendor
+          git diff --exit-code -- go.mod go.sum _vendor scripts/build-versioned-site.py
 
       - name: Validate lesson content
         shell: bash
@@ -48,8 +51,11 @@ jobs:
           MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@latest)"
           go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"
 
+      - name: Fetch deploy refs
+        run: git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*' --tags
+
       - name: Build
-        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: python3 scripts/build-versioned-site.py --base-url "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

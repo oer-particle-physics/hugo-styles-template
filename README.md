@@ -29,6 +29,8 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
    The top-nav GitHub icon is configured separately in `[[menus.main]]`.
    If you will deploy on GitHub Pages, set `baseURL` to `https://<account>.github.io/<repo>/`.
    In the repository settings, enable Pages and choose `GitHub Actions` as the source before the first push to `main`.
+   Versioned deployment is configured through `[params.versioning]`.
+   By default the workflow publishes the default branch as `Latest`; add branch/tag refs or patterns only if you want archived versions too.
 3. Add or replace the sample content.
 4. Use the shared docs in the `hugo-styles` repository or on its published site when you need deeper authoring, deployment, or update guidance:
    - [Quickstart](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/)
@@ -37,9 +39,6 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
    - [Components](https://oer-particle-physics.github.io/hugo-styles/docs/components/)
    - [Deployment](https://oer-particle-physics.github.io/hugo-styles/docs/deployment/)
    - [Versioned Sites](https://oer-particle-physics.github.io/hugo-styles/docs/versioned-sites/)
-
-The sample `Versions` dropdown in `hugo.toml` demonstrates the same pattern Hextra uses for its public docs.
-Replace those URLs with your real published version paths or remove the menu entirely if your lesson only ships one site version.
 
 ## Why `_vendor/` is committed
 
@@ -51,7 +50,7 @@ As long as `go.mod`, `go.sum`, and `_vendor/` are in sync, `hugo server` works w
 ### Preferred: GitHub Actions (no local Go required)
 
 Run the **Refresh vendored Hugo modules** workflow from the Actions tab.
-It refreshes module metadata and `_vendor/`, then opens a PR if anything changed.
+It refreshes module metadata, re-syncs `scripts/build-versioned-site.py` from the pinned `hugo-styles` module version, refreshes `_vendor/`, and then opens a PR if anything changed.
 
 Dependabot still manages `gomod` version discovery and can trigger update PRs on its normal schedule.
 
@@ -59,6 +58,7 @@ Dependabot still manages `gomod` version discovery and can trigger update PRs on
 
 ```bash
 hugo mod tidy
+./scripts/sync-build-versioned-site.sh
 hugo mod vendor
 hugo --gc --minify
 ```
@@ -68,6 +68,7 @@ If you want to move to the latest release first:
 ```bash
 hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
 hugo mod tidy
+./scripts/sync-build-versioned-site.sh
 hugo mod vendor
 ```
 
@@ -75,6 +76,7 @@ Commit these files together:
 
 - `go.mod`
 - `go.sum`
+- `scripts/build-versioned-site.py`
 - `_vendor/`
 
 For local co-development with a sibling `hugo-styles` checkout, use a temporary local `replace` or `go.work`
