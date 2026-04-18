@@ -1,7 +1,7 @@
 baseURL = "https://example.github.io/example-lesson/"
 title = "Example Lesson"
 languageCode = "en-us"
-enableGitInfo = false
+enableGitInfo = true
 disableKinds = ["taxonomy", "term", "RSS"]
 
 [module]
@@ -36,7 +36,9 @@ disableKinds = ["taxonomy", "term", "RSS"]
   description = "Replace this metadata with your own tutorial details."
   contact = "team@example.org"
   repo = "https://github.com/oer-particle-physics/hugo-styles-template"
+  docsRepo = "https://github.com/oer-particle-physics/hugo-styles-template"
   editBranch = "main"
+  copyrightHolder = "the authors"
   licenseName = "CC BY 4.0"
   licenseURL = "https://creativecommons.org/licenses/by/4.0/"
   lifecycle = "alpha"

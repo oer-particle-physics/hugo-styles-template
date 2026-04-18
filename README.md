@@ -26,13 +26,18 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
    Go is optional for normal authoring because this template commits `_vendor/`.
 2. Update `baseURL`, title, description, contact, and repository links in `hugo.toml`.
    `params.lesson.repo` powers the source and edit links in the page footer.
+   `params.lesson.docsRepo` powers the default footer citation link and should usually match the lesson repository.
+   `params.lesson.copyrightHolder` is used in the footer copyright line.
    The top-nav GitHub icon is configured separately in `[[menus.main]]`.
    If you will deploy on GitHub Pages, set `baseURL` to `https://<account>.github.io/<repo>/`.
    In the repository settings, enable Pages and choose `GitHub Actions` as the source before the first push to `main`.
    Versioned deployment is configured through `[params.versioning]`.
    By default the workflow publishes the default branch as `Latest`; add branch/tag refs or patterns only if you want archived versions too.
-3. Add or replace the sample content.
-4. Use the shared docs in the `hugo-styles` repository or on its published site when you need deeper authoring, deployment, or update guidance:
+3. Replace the repository metadata placeholders.
+   Update `CITATION.cff`, `AUTHORS`, and `LICENSE.md` so citation and licensing details match your lesson.
+   If you keep the default footer citation link, it will point to the root `CITATION.cff` in your lesson repository.
+4. Add or replace the sample content.
+5. Use the shared docs in the `hugo-styles` repository or on its published site when you need deeper authoring, deployment, or update guidance:
    - [Quickstart](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/)
    - [Authoring Guide](https://oer-particle-physics.github.io/hugo-styles/docs/authoring/)
    - [Front Matter](https://oer-particle-physics.github.io/hugo-styles/docs/frontmatter/)
