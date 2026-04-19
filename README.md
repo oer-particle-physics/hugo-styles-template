@@ -8,7 +8,7 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
 - lesson metadata in `hugo.toml`
 - local branding or small layout overrides
 - vendored Hugo module files in `_vendor/` for no-Go local authoring
-- GitHub Pages workflow
+- synced maintainer workflows and helper scripts
 - Dependabot configuration for module updates
 
 ## What stays upstream
@@ -66,35 +66,34 @@ The GitHub Pages workflow runs the same validation build plus `lychee` on pull r
 ### Preferred: GitHub Actions (no local Go required)
 
 Run the **Refresh vendored Hugo modules** workflow from the Actions tab.
-It refreshes module metadata, re-syncs `scripts/build-versioned-site.py` and `lychee.toml` from the pinned `hugo-styles` module version, refreshes `_vendor/`, and then opens a PR if anything changed.
+It bumps `github.com/oer-particle-physics/hugo-styles` to the latest release, re-syncs the managed maintainer files from that exact pinned module version, refreshes `_vendor/`, and then opens a PR if anything changed.
 
 Dependabot still manages `gomod` version discovery and can trigger update PRs on its normal schedule.
 
 ### Local maintainer path (Go available)
 
 ```bash
+hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
 hugo mod tidy
-./scripts/sync-build-versioned-site.sh
+./scripts/sync-template-files.sh
 hugo mod vendor
 hugo --gc --minify
 ```
 
-If you want to move to the latest release first:
-
-```bash
-hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
-hugo mod tidy
-./scripts/sync-build-versioned-site.sh
-hugo mod vendor
-```
-
 Commit these files together:
 
+- `.github/workflows/pages.yml`
+- `.github/workflows/refresh-vendored-modules.yml`
+- `.github/workflows/reusable-pages.yml`
+- `.github/workflows/reusable-refresh-vendored-modules.yml`
 - `go.mod`
 - `go.sum`
-- `scripts/build-versioned-site.py`
 - `lychee.toml`
+- `scripts/build-versioned-site.py`
+- `scripts/sync-template-files.sh`
 - `_vendor/`
+
+The synced workflow files stay intentionally thin: the triggers live in this repository, while the canonical workflow logic is maintained upstream in `hugo-styles` and copied into the managed reusable workflow files during sync.
 
 For local co-development with a sibling `hugo-styles` checkout, use a temporary local `replace` or `go.work`
 setup while testing, but do not commit that override to the template repository.

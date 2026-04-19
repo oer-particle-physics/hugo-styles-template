@@ -22,17 +22,19 @@ The vendored tree contains the shared `hugo-styles` module and its theme depende
 ### Using GitHub Actions (no local Go required)
 
 In this repository, run the **Refresh vendored Hugo modules** workflow from the Actions tab.
-It refreshes `go.mod`, `go.sum`, and `_vendor/`, then opens a pull request if anything changed.
+It updates the pinned `hugo-styles` release, refreshes the synced maintainer files, refreshes `_vendor/`, and then opens a pull request if anything changed.
 
 ### Locally (with Go installed)
 
 ```bash
+hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
 hugo mod tidy
+./scripts/sync-template-files.sh
 hugo mod vendor
 hugo --gc --minify
 ```
 
-Commit `go.mod`, `go.sum`, and `_vendor/` together.
+Commit `go.mod`, `go.sum`, the synced maintainer files, and `_vendor/` together.
 
 ## Small copy-paste examples
 

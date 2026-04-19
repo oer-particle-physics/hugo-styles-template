@@ -1,3 +1,5 @@
+# Managed by hugo-styles.
+# x-release-please-version: v0.1.0
 name: Deploy lesson
 
 on:
@@ -15,92 +17,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: "0.160.1"
-          extended: true
-
-      - name: Setup Go
-        uses: actions/setup-go@v6
-        with:
-          go-version-file: go.mod
-
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v6
-
-      - name: Verify vendored modules are up to date
-        shell: bash
-        run: |
-          hugo mod tidy
-          ./scripts/sync-build-versioned-site.sh
-          hugo mod vendor
-          git diff --exit-code -- go.mod go.sum _vendor scripts/build-versioned-site.py lychee.toml
-
-      - name: Validate lesson content
-        shell: bash
-        run: |
-          MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@latest)"
-          go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"
-
-      - name: Restore lychee cache
-        id: restore-lychee-cache
-        uses: actions/cache/restore@v4
-        with:
-          path: .lycheecache
-          key: cache-lychee-${{ github.sha }}
-          restore-keys: cache-lychee-
-
-      - name: Fetch deploy refs
-        run: git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*' --tags
-
-      - name: Build link-check artifact
-        run: python3 scripts/build-versioned-site.py --base-url / --destination .cache/linkcheck-site --no-minify
-
-      - name: Check rendered links
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: >-
-            --cache
-            --config ./lychee.toml
-            --no-progress
-            --root-dir ./.cache/linkcheck-site
-            './.cache/linkcheck-site/**/*.html'
-          fail: true
-          jobSummary: true
-          token: ${{ github.token }}
-
-      - name: Save lychee cache
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: .lycheecache
-          key: ${{ steps.restore-lychee-cache.outputs.cache-primary-key }}
-
-      - name: Build deploy artifact
-        run: python3 scripts/build-versioned-site.py --base-url "${{ steps.pages.outputs.base_url }}/"
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: ./public
-
-  deploy:
-    if: github.event_name == 'push'
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v5
+  pages:
+    uses: ./.github/workflows/reusable-pages.yml
+    with:
+      site-root: .
+      go-version-file: go.mod
+      sync-command: |
+        hugo mod tidy
+        ./scripts/sync-template-files.sh
+        hugo mod vendor
+      drift-check-paths: |
+        .github/workflows/pages.yml
+        .github/workflows/refresh-vendored-modules.yml
+        .github/workflows/reusable-pages.yml
+        .github/workflows/reusable-refresh-vendored-modules.yml
+        go.mod
+        go.sum
+        lychee.toml
+        scripts/build-versioned-site.py
+        scripts/sync-template-files.sh
+        _vendor
+      validation-command: |
+        MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@latest)"
+        go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"
