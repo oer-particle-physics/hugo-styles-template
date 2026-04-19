@@ -43,11 +43,12 @@ jobs:
           commit-message: "chore: refresh vendored Hugo modules"
           title: "chore: refresh vendored Hugo modules"
           body: |
-            Automated refresh of Hugo module metadata, the committed build helper, and `_vendor/`.
+            Automated refresh of Hugo module metadata, the committed build helper and lychee config, and `_vendor/`.
 
             Updated artifacts:
             - `go.mod`
             - `go.sum`
             - `scripts/build-versioned-site.py`
+            - `lychee.toml`
             - `_vendor/`
           labels: dependencies

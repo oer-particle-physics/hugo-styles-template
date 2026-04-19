@@ -11,22 +11,31 @@ mkdir -p "${GOMODCACHE}" "${GOCACHE}"
 
 go mod download github.com/oer-particle-physics/hugo-styles >/dev/null
 MODULE_DIR="$(go list -m -f '{{.Dir}}' github.com/oer-particle-physics/hugo-styles)"
-SOURCE_SCRIPT="${MODULE_DIR}/scripts/build-versioned-site.py"
-TARGET_SCRIPT="${SCRIPT_DIR}/build-versioned-site.py"
 
 if [[ -z "${MODULE_DIR}" ]]; then
   echo "Error: could not resolve github.com/oer-particle-physics/hugo-styles module directory" >&2
   exit 1
 fi
 
-if [[ ! -f "${SOURCE_SCRIPT}" ]]; then
-  if [[ -f "${TARGET_SCRIPT}" ]]; then
-    echo "Pinned hugo-styles module does not provide ${SOURCE_SCRIPT##*/} yet; leaving committed ${TARGET_SCRIPT##*/} unchanged"
-    exit 0
-  fi
-  echo "Error: expected source script not found at ${SOURCE_SCRIPT}" >&2
-  exit 1
-fi
+SHARED_FILES=(
+  "scripts/build-versioned-site.py|scripts/build-versioned-site.py|0755"
+  "lychee.toml|lychee.toml|0644"
+)
 
-install -m 0755 "${SOURCE_SCRIPT}" "${TARGET_SCRIPT}"
-echo "Synced ${TARGET_SCRIPT} from ${SOURCE_SCRIPT}"
+for entry in "${SHARED_FILES[@]}"; do
+  IFS='|' read -r source_rel target_rel mode <<<"${entry}"
+  source_path="${MODULE_DIR}/${source_rel}"
+  target_path="${REPO_ROOT}/${target_rel}"
+
+  if [[ ! -f "${source_path}" ]]; then
+    if [[ -f "${target_path}" ]]; then
+      echo "Pinned hugo-styles module does not provide ${source_rel}; leaving committed ${target_rel} unchanged"
+      continue
+    fi
+    echo "Error: expected source file not found at ${source_path}" >&2
+    exit 1
+  fi
+
+  install -m "${mode}" "${source_path}" "${target_path}"
+  echo "Synced ${target_path} from ${source_path}"
+done

@@ -50,12 +50,23 @@ This is the thin starter repository for lessons that use the shared `hugo-styles
 This repository commits `_vendor/` so authors can run local lesson builds without installing Go.
 As long as `go.mod`, `go.sum`, and `_vendor/` are in sync, `hugo server` works with Hugo Extended alone.
 
+For local rendered-site link checks, install
+[lychee](https://lychee.cli.rs/guides/getting-started/)
+and run:
+
+```bash
+python3 scripts/build-versioned-site.py --base-url / --destination .cache/linkcheck-site --no-minify
+lychee --cache --config lychee.toml --no-progress --root-dir .cache/linkcheck-site '.cache/linkcheck-site/**/*.html'
+```
+
+The GitHub Pages workflow runs the same validation build plus `lychee` on pull requests and on pushes to `main`.
+
 ## Updating shared module versions
 
 ### Preferred: GitHub Actions (no local Go required)
 
 Run the **Refresh vendored Hugo modules** workflow from the Actions tab.
-It refreshes module metadata, re-syncs `scripts/build-versioned-site.py` from the pinned `hugo-styles` module version, refreshes `_vendor/`, and then opens a PR if anything changed.
+It refreshes module metadata, re-syncs `scripts/build-versioned-site.py` and `lychee.toml` from the pinned `hugo-styles` module version, refreshes `_vendor/`, and then opens a PR if anything changed.
 
 Dependabot still manages `gomod` version discovery and can trigger update PRs on its normal schedule.
 
@@ -82,6 +93,7 @@ Commit these files together:
 - `go.mod`
 - `go.sum`
 - `scripts/build-versioned-site.py`
+- `lychee.toml`
 - `_vendor/`
 
 For local co-development with a sibling `hugo-styles` checkout, use a temporary local `replace` or `go.work`
