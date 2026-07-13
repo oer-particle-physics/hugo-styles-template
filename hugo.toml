@@ -35,6 +35,10 @@ disableKinds = ["taxonomy", "term", "RSS"]
     [markup.goldmark.renderer]
       unsafe = true
 
+[params.banner]
+  key = "hugo-styles-template-welcome-v1"
+  message = "This example lesson is a live hugo-styles feature demo. [Start with setup](/learners/setup/)."
+
 [params.lesson]
   title = "Example Lesson"
   tagline = "A thin downstream lesson built on the shared hugo-styles module."
