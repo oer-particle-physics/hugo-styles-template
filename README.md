@@ -1,99 +1,37 @@
-# Hugo Styles Template
+# Hugo Styles Lesson Template
 
-This is the thin starter repository for lessons that use the shared `hugo-styles` module.
+Use this repository to start a lesson powered by the shared
+[`hugo-styles`](https://oer-particle-physics.github.io/hugo-styles/) module.
+The rendered site contains a short example that is meant to be replaced.
 
-## What stays here
+## Create your lesson
 
-- lesson-specific content
-- lesson metadata in `hugo.toml`
-- local branding or small layout overrides
-- vendored Hugo module files in `_vendor/` for no-Go local authoring
-- synced maintainer workflows and helper scripts
-- Dependabot configuration for module updates
+1. **Preview the site.** Install [Hugo Extended](https://gohugo.io/installation/), then run:
 
-## What stays upstream
+   ```bash
+   hugo server
+   ```
 
-- shared layouts
-- pedagogy shortcodes
-- shared CSS and JS
-- aggregated resource pages
-- migration and validation tooling
+2. **Configure the lesson.** Replace the example values in `hugo.toml`, including
+   `baseURL`, `title`, `[params.lesson]`, and the GitHub menu URL. Then update
+   `CITATION.cff` and `AUTHORS`. Edit `LICENSE.md` only if your licensing differs from
+   the template.
 
-## First steps
+3. **Replace the sample content.** Start with
+   `content/episodes/01-write-your-first-episode/`, then adapt or remove the example
+   setup, instructor notes, glossary, profile, and reference pages. The
+   [Authoring Guide](https://oer-particle-physics.github.io/hugo-styles/docs/authoring/)
+   explains the content structure.
 
-1. Check local setup first.
-   Install Hugo Extended, then run `hugo version` and `hugo server`.
-   Go is optional for normal authoring because this template commits `_vendor/`.
-2. Update `baseURL`, title, description, contact, and repository links in `hugo.toml`.
-   `params.lesson.repo` powers the source and edit links in the page footer.
-   `params.lesson.docsRepo` powers the default footer citation link and should usually match the lesson repository.
-   `params.lesson.copyrightHolder` is used in the footer copyright line.
-   The top-nav GitHub icon is configured separately in `[[menus.main]]`.
-   If you will deploy on GitHub Pages, set `baseURL` to `https://<account>.github.io/<repo>/`.
-   In the repository settings, enable Pages and choose `GitHub Actions` as the source before the first push to `main`.
-   Versioned deployment is configured through `[params.versioning]`.
-   By default the workflow publishes the default branch as `Latest`; add branch/tag refs or patterns only if you want archived versions too.
-3. Replace the repository metadata placeholders.
-   Update `CITATION.cff`, `AUTHORS`, and `LICENSE.md` so citation and licensing details match your lesson.
-   If you keep the default footer citation link, it will point to the root `CITATION.cff` in your lesson repository.
-4. Add or replace the sample content.
-5. Use the shared docs in the `hugo-styles` repository or on its published site when you need deeper authoring, deployment, or update guidance:
-   - [Quickstart](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/)
-   - [Authoring Guide](https://oer-particle-physics.github.io/hugo-styles/docs/authoring/)
-   - [Front Matter](https://oer-particle-physics.github.io/hugo-styles/docs/frontmatter/)
-   - [Components](https://oer-particle-physics.github.io/hugo-styles/docs/components/)
-   - [Deployment](https://oer-particle-physics.github.io/hugo-styles/docs/deployment/)
-   - [Versioned Sites](https://oer-particle-physics.github.io/hugo-styles/docs/versioned-sites/)
+4. **Publish the site.** Set `baseURL` to `https://<account>.github.io/<repo>/`, enable
+   GitHub Pages with **GitHub Actions** as its source, and push `main`. See the
+   [Deployment Guide](https://oer-particle-physics.github.io/hugo-styles/docs/deployment/)
+   for details.
 
-## Why `_vendor/` is committed
+For field and component reference, use the shared [Front Matter](https://oer-particle-physics.github.io/hugo-styles/docs/frontmatter/) and [Components](https://oer-particle-physics.github.io/hugo-styles/docs/components/) pages.
 
-This repository commits `_vendor/` so authors can run local lesson builds without installing Go.
-As long as `go.mod`, `go.sum`, and `_vendor/` are in sync, `hugo server` works with Hugo Extended alone.
+## Receive Hugo Styles updates
 
-For local rendered-site link checks, install
-[lychee](https://lychee.cli.rs/guides/getting-started/)
-and run:
+The scheduled **Refresh vendored Hugo modules** workflow updates the pinned module, managed files, and `_vendor/`, then opens a pull request for review. Configure the `WORKFLOW_SYNC_TOKEN` repository secret as described in the [Update Guide](https://oer-particle-physics.github.io/hugo-styles/docs/updates/) so the workflow can update managed workflow files.
 
-```bash
-python3 scripts/build-versioned-site.py --base-url / --destination .cache/linkcheck-site --no-minify
-lychee --cache --config lychee.toml --no-progress --root-dir .cache/linkcheck-site '.cache/linkcheck-site/**/*.html'
-```
-
-The GitHub Pages workflow runs the same validation build plus `lychee` on pull requests and on pushes to `main`.
-
-## Updating shared module versions
-
-### Preferred: GitHub Actions (no local Go required)
-
-Run the **Refresh vendored Hugo modules** workflow from the Actions tab.
-It bumps `github.com/oer-particle-physics/hugo-styles` to the latest release, re-syncs the managed maintainer files from that exact pinned module version, refreshes `_vendor/`, and then opens a PR if anything changed.
-
-Dependabot still manages `gomod` version discovery and can trigger update PRs on its normal schedule.
-
-### Local maintainer path (Go available)
-
-```bash
-hugo mod get -u github.com/oer-particle-physics/hugo-styles@latest
-hugo mod tidy
-./scripts/sync-template-files.sh
-hugo mod vendor
-hugo --gc --minify
-```
-
-Commit these files together:
-
-- `.github/workflows/pages.yml`
-- `.github/workflows/refresh-vendored-modules.yml`
-- `.github/workflows/reusable-pages.yml`
-- `.github/workflows/reusable-refresh-vendored-modules.yml`
-- `go.mod`
-- `go.sum`
-- `lychee.toml`
-- `scripts/build-versioned-site.py`
-- `scripts/sync-template-files.sh`
-- `_vendor/`
-
-The synced workflow files stay intentionally thin: the triggers live in this repository, while the canonical workflow logic is maintained upstream in `hugo-styles` and copied into the managed reusable workflow files during sync.
-
-For local co-development with a sibling `hugo-styles` checkout, use a temporary local `replace` or `go.work`
-setup while testing, but do not commit that override to the template repository.
+Keep `_vendor/` committed. It lets lesson authors build locally with Hugo Extended alone; Go is not required for normal authoring.

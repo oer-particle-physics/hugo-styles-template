@@ -3,5 +3,4 @@ title = "Episodes"
 weight = 10
 +++
 
-Replace these sample episodes with your own tutorial narrative.
-
+This template includes one sample episode. Replace it with your own teaching sequence.
