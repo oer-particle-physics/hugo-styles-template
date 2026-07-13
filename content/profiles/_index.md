@@ -3,5 +3,4 @@ title = "Learner Profiles"
 weight = 50
 +++
 
-Add learner or maintainer profiles here when they help shape your lesson design.
-
+Profiles describe readers whose needs should shape the lesson design.

@@ -1,51 +1,51 @@
 +++
-title = "Example Lesson"
+title = "Hugo Styles Starter Lesson"
 layout = "hextra-home"
 +++
 
-{{< hextra/hero-badge link="https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/" >}}
-Shared module docs {{< icon name="arrow-circle-right" attributes="height=14" >}}
+{{< hextra/hero-badge link="episodes/01-write-your-first-episode/" >}}
+Replaceable starter content {{< icon name="arrow-circle-right" attributes="height=14" >}}
 {{< /hextra/hero-badge >}}
 
 <div class="hx:mt-6 hx:mb-6">
 {{< hextra/hero-headline >}}
-Launch a lesson&nbsp;
+Build your lesson&nbsp;
 <br class="hx:xl:block hx:hidden" />
-without copying framework code
+with Hugo Styles
 {{< /hextra/hero-headline >}}
 </div>
 
 <div class="hx:mb-12">
 {{< hextra/hero-subtitle >}}
-Start with local setup checks, then update `hugo.toml`, then replace the sample content.
-The shared [hugo-styles](https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/) docs provide the authoring, deployment, and update guidance while this template stays focused on lesson-specific files.
+Preview this small example, adapt its first episode, and continue with your own material.
+Shared layouts and components come from `hugo-styles`; your lesson content stays here.
 {{< /hextra/hero-subtitle >}}
 </div>
 
 <div class="hx:mb-6">
-{{< hextra/hero-button text="Get Started" link="episodes/01-getting-started/" >}}
+{{< hextra/hero-button text="Write Your First Episode" link="episodes/01-write-your-first-episode/" >}}
 </div>
 
 <div class="hx:mt-6"></div>
 
 {{< hextra/feature-grid cols="3" >}}
 {{< hextra/feature-card
-  title="First-run path"
-  subtitle="Follow the getting-started page in order: setup, metadata, then content replacement."
+  title="Preview"
+  subtitle="Install Hugo Extended and run the sample site locally."
   icon="book-open"
-  link="episodes/01-getting-started/"
->}}
-{{< hextra/feature-card
-  title="Shared docs"
-  subtitle="Use the shared `hugo-styles` docs for authoring, deployment, and update guidance after the site is running."
-  icon="academic-cap"
-  link="https://oer-particle-physics.github.io/hugo-styles/docs/quickstart/"
->}}
-{{< hextra/feature-card
-  title="Setup checks"
-  subtitle="Verify Hugo Extended first. Go stays optional for normal authoring because `_vendor/` is committed."
-  icon="sparkles"
   link="learners/setup/"
+>}}
+{{< hextra/feature-card
+  title="Adapt"
+  subtitle="Replace the example front matter and teaching content with your topic."
+  icon="academic-cap"
+  link="episodes/01-write-your-first-episode/"
+>}}
+{{< hextra/feature-card
+  title="Continue"
+  subtitle="Create a second episode from the shared archetype when the first is ready."
+  icon="sparkles"
+  link="episodes/01-write-your-first-episode/#create-your-next-episode"
 >}}
 {{< /hextra/feature-grid >}}
 

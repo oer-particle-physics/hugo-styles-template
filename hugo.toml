@@ -1,6 +1,6 @@
 baseURL = "https://example.github.io/example-lesson/"
-title = "Example Lesson"
-languageCode = "en-us"
+title = "Hugo Styles Starter Lesson"
+locale = "en-US"
 enableGitInfo = true
 disableKinds = ["taxonomy", "term", "RSS"]
 
@@ -36,13 +36,13 @@ disableKinds = ["taxonomy", "term", "RSS"]
       unsafe = true
 
 [params.banner]
-  key = "hugo-styles-template-welcome-v1"
-  message = "This example lesson is a live hugo-styles feature demo. [Start with setup](/learners/setup/)."
+  key = "hugo-styles-template-welcome-v2"
+  message = "This site contains replaceable starter content for a new lesson."
 
 [params.lesson]
-  title = "Example Lesson"
-  tagline = "A thin downstream lesson built on the shared hugo-styles module."
-  description = "Replace this metadata with your own tutorial details."
+  title = "Hugo Styles Starter Lesson"
+  tagline = "A small, adaptable example for writing your own lesson."
+  description = "Replace this sample with the topic, audience, and learning goals for your lesson."
   contact = "team@example.org"
   repo = "https://github.com/oer-particle-physics/hugo-styles-template"
   docsRepo = "https://github.com/oer-particle-physics/hugo-styles-template"

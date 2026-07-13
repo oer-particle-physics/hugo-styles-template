@@ -4,5 +4,4 @@ weight = 30
 audience = "instructor"
 +++
 
-Add facilitation notes and teaching guidance here.
-
+Example facilitation material to adapt or replace with your lesson.

@@ -3,13 +3,8 @@ title = "Setup"
 weight = 10
 +++
 
-For normal lesson authoring in this template, you only need Hugo Extended.
-The shared module is vendored in `_vendor/`, so local builds do not require Go.
-
-{{< callout type="note" title="When Go is needed" >}}
-Go is only needed if you maintain module updates locally
-(for example, running `hugo mod tidy`, `hugo mod vendor`, or the migration checker).
-{{< /callout >}}
+Install Hugo Extended before editing the lesson. The shared module is already available
+in `_vendor/`, so normal authoring does not require Go.
 
 {{< tabs >}}
 {{< tab name="macOS" selected=true >}}
@@ -29,28 +24,15 @@ winget install Hugo.Hugo.Extended
 {{< /tab >}}
 {{< /tabs >}}
 
-{{< tabs >}}
-{{< tab name="bash" selected=true >}}
+From the repository root, verify the installation and start the preview server:
+
 ```bash
 hugo version
+hugo server
 ```
-{{< /tab >}}
-{{< tab name="zsh" >}}
-```zsh
-hugo version
-```
-{{< /tab >}}
-{{< tab name="fish" >}}
-```fish
-hugo version
-```
-{{< /tab >}}
-{{< /tabs >}}
 
-If you plan to update `_vendor/` locally, install Go and verify with `go version`.
+The version output should include `extended`.
 
 ## Next step
 
-Once `hugo version` and `hugo server` work, return to
-[Getting started]({{< relref "/episodes/01-getting-started" >}})
-and continue with step 2: update `hugo.toml` before replacing the sample content.
+Continue with [Write your first episode]({{< relref "/episodes/01-write-your-first-episode" >}}).
