@@ -1,5 +1,5 @@
 # Managed by hugo-styles.
-# x-release-please-version: v0.4.0
+# x-release-please-version: v0.5.3
 name: Deploy lesson
 
 on:
@@ -38,5 +38,5 @@ jobs:
         scripts/sync-template-files.sh
         _vendor
       validation-command: |
-        MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@latest)"
+        MODULE_VERSION="$(go list -m -f '{{.Version}}' github.com/oer-particle-physics/hugo-styles)"
         go run "github.com/oer-particle-physics/hugo-styles/cmd/hugo-styles-migrate@${MODULE_VERSION}" check "${GITHUB_WORKSPACE}"

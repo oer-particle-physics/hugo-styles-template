@@ -3,6 +3,6 @@ module github.com/oer-particle-physics/hugo-styles-template
 go 1.26
 
 require (
-	github.com/imfing/hextra v0.12.1 // indirect
-	github.com/oer-particle-physics/hugo-styles v0.4.0 // indirect
+	github.com/imfing/hextra v0.12.3 // indirect
+	github.com/oer-particle-physics/hugo-styles v0.5.3 // indirect
 )
