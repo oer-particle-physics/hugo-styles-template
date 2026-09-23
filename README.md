@@ -14,8 +14,8 @@ The rendered site contains a short example that is meant to be replaced.
 
 2. **Configure the lesson.** Replace the example values in `hugo.toml`, including
    `baseURL`, `title`, `[params.lesson]`, and the GitHub menu URL. Then update
-   `CITATION.cff` and `AUTHORS`. Edit `LICENSE.md` only if your licensing differs from
-   the template.
+   `CITATION.cff`; its `authors` list is shown on the homepage. Edit `LICENSE.md` only
+   if your licensing differs from the template.
 
 3. **Replace the sample content.** Start with
    `content/episodes/01-write-your-first-episode/`, then adapt or remove the example
